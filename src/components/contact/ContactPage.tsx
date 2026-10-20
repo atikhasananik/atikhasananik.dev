@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import ContactToast from "./ContactToast";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -45,6 +46,15 @@ const marqueeItems = [
 const ContactPage = () => {
   const reduceMotion = useReducedMotion();
   const [time, setTime] = useState("");
+  const [toast, setToast] = useState<{ id: number } | null>(null);
+  const toastSequence = useRef(0);
+
+  useEffect(() => {
+    if (!toast) return;
+
+    const id = window.setTimeout(() => setToast(null), 6_000);
+    return () => window.clearTimeout(id);
+  }, [toast]);
 
   useEffect(() => {
     const tick = () => {
@@ -64,13 +74,18 @@ const ContactPage = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const data = new FormData(form);
     const name = String(data.get("name") ?? "");
     const email = String(data.get("email") ?? "");
     const message = String(data.get("message") ?? "");
 
     const subject = encodeURIComponent(`Project enquiry — ${name}`);
     const body = encodeURIComponent(`${message}\n\n— ${name}\n${email}`);
+
+    form.reset();
+    toastSequence.current += 1;
+    setToast({ id: toastSequence.current });
     window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
   };
 
@@ -285,6 +300,12 @@ const ContactPage = () => {
           </motion.div>
         </motion.div>
       </div>
+
+      <ContactToast
+        open={Boolean(toast)}
+        toastKey={toast?.id ?? 0}
+        onClose={() => setToast(null)}
+      />
     </div>
   );
 };

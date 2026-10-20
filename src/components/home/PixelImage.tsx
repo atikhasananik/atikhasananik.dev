@@ -33,8 +33,11 @@ const PixelImage = ({ src, alt, className }: PixelImageProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [aspectRatio, setAspectRatio] = useState(1);
 
-  const { scrollY } = useScroll();
-  const smoothScroll = useSpring(scrollY, {
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+  const smoothScroll = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 30,
     mass: 0.4,
@@ -83,16 +86,19 @@ const PixelImage = ({ src, alt, className }: PixelImageProps) => {
       }
     };
 
-    const draw = (scroll: number) => {
+    const draw = (travel: number) => {
       if (!image) return;
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, width, height);
 
-      // 0 at the top of the page, 1 after roughly one viewport of scrolling.
-      const viewport = typeof window === "undefined" ? 1 : window.innerHeight;
-      const raw = scroll / Math.max(1, viewport * 0.9);
-      const progress = Math.min(1, Math.max(0, (raw - 0.06) / 0.9));
+      // `travel` is the image's own viewport journey: 0 when it starts
+      // entering, 1 after it has left. Keep it intact while it is visible,
+      // then shatter it over the remaining travel. Stacked/mobile layouts
+      // need a later hold so the portrait is not already gone when reached.
+      const compact = typeof window !== "undefined" && window.innerWidth < 1024;
+      const hold = compact ? 0.66 : 0.52;
+      const progress = Math.min(1, Math.max(0, (travel - hold) / (1 - hold)));
 
       const sourceW = image.naturalWidth;
       const sourceH = image.naturalHeight;

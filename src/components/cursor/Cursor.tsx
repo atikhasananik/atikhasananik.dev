@@ -67,7 +67,7 @@ const Cursor = () => {
       {/* Core dot */}
       <motion.div
         aria-hidden="true"
-        className="custom-cursor pointer-events-none fixed top-0 left-0 z-[100] -mt-[3px] -ml-[3px] h-1.5 w-1.5 rounded-full bg-white mix-blend-difference"
+        className="custom-cursor pointer-events-none fixed top-0 left-0 z-[140] -mt-[3px] -ml-[3px] h-1.5 w-1.5 rounded-full bg-white mix-blend-difference"
         style={{ x: dotX, y: dotY }}
         animate={{
           opacity: visible ? 1 : 0,
@@ -79,7 +79,7 @@ const Cursor = () => {
       {/* Trailing ring that grows over interactive elements */}
       <motion.div
         aria-hidden="true"
-        className="custom-cursor pointer-events-none fixed top-0 left-0 z-[100] -mt-4 -ml-4 h-8 w-8 rounded-full border border-white mix-blend-difference"
+        className="custom-cursor pointer-events-none fixed top-0 left-0 z-[140] -mt-4 -ml-4 h-8 w-8 rounded-full border border-white mix-blend-difference"
         style={{ x: ringX, y: ringY }}
         animate={{
           opacity: visible ? 1 : 0,

@@ -8,18 +8,18 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const education: Education[] = [
   {
     index: "1",
-    title: "B.SC",
+    title: "DIPLOMA IN",
     version: "CSE",
-    stats: ["2021 — 2025 //", "CGPA 3.8 / 4.0 //", "4 ACADEMIC YEARS //"],
-    meta: "[DEGREE.01].CSE // INSTITUTE: STATE UNIVERSITY. MAJOR: SOFTWARE ENGINEERING. Focus: Web Systems.",
+    stats: ["2023 — RUNNING //", "3 ACADEMIC YEARS //"],
+    meta: "[DEGREE.01].CSE // MAJOR: SOFTWARE ENGINEERING. Focus: Web Systems.",
     art: "degree",
   },
   {
     index: "2",
-    title: "HSC",
+    title: "SSC",
     version: "SCIENCE",
-    stats: ["2018 — 2020 //", "GPA 5.0 / 5.0 //", "2 ACADEMIC YEARS //"],
-    meta: "[DEGREE.02].HSC // INSTITUTE: CITY COLLEGE. GROUP: SCIENCE. Focus: Mathematics. Physics. ICT.",
+    stats: ["2021 — 2023 //", "GPA 3.94 / 5.00 //", "2 ACADEMIC YEARS //"],
+    meta: "[DEGREE.02].SSC // GROUP: SCIENCE. Focus: Mathematics. Physics. ICT.",
     art: "transcript",
   },
   {
@@ -91,7 +91,7 @@ const EducationPage = () => {
             transition={{ duration: 1, ease: EASE, delay: 0.25 }}
             className="pointer-events-none absolute right-0 bottom-0 z-0 select-none text-[7rem] font-black leading-none tracking-tighter text-[#e8e8ea] sm:text-[10rem] lg:text-[13rem] xl:text-[15rem]"
           >
-            3.8
+            3.94
           </motion.span>
         </section>
       </div>

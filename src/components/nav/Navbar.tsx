@@ -76,10 +76,14 @@ const Navbar = () => {
         initial={{ opacity: 0, y: reduceMotion ? 0 : -12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: EASE }}
-        className="fixed top-0 left-0 right-0 z-100 mix-blend-difference"
+        className="pointer-events-none fixed top-0 left-0 right-0 z-[130] mix-blend-difference"
       >
-        <div className="flex items-center justify-end px-4 py-4 sm:px-10 sm:py-5">
-          <ul className="flex items-center gap-4 text-sm font-semibold text-white md:gap-8 md:text-base">
+        <div
+          className={`mx-auto flex max-w-[1680px] items-center justify-end px-4 py-4 sm:px-10 sm:py-5 ${
+            open ? "sm:pr-[88px]" : ""
+          }`}
+        >
+          <ul className="pointer-events-auto flex items-center gap-4 text-sm font-semibold text-white md:gap-8 md:text-base">
             {links.map((link) => {
               const active = pathname === link.href;
 
@@ -87,6 +91,7 @@ const Navbar = () => {
                 <li key={link.href} className="hidden sm:block">
                   <Link
                     href={link.href}
+                    onClick={close}
                     aria-current={active ? "page" : undefined}
                     className={`relative block py-1 transition-colors duration-300 after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:bg-white after:transition-[width] after:duration-300 ${
                       active
@@ -100,61 +105,68 @@ const Navbar = () => {
               );
             })}
 
-            <li className="flex items-center">
-              <Link
-                href="/"
-                aria-label="Home"
-                aria-current={pathname === "/" ? "page" : undefined}
-                className={`flex h-8 w-8 items-center justify-center transition-colors duration-300 hover:bg-white hover:text-black ${
-                  pathname === "/" ? "bg-white text-black" : ""
-                }`}
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="square"
-                  aria-hidden="true"
-                >
-                  <path d="M3 10.5 12 3l9 7.5" />
-                  <path d="M5 9v12h14V9" />
-                  <path d="M10 21v-6h4v6" />
-                </svg>
-              </Link>
-            </li>
+            {!open && (
+              <>
+                <li className="flex items-center">
+                  <Link
+                    href="/"
+                    aria-label="Home"
+                    aria-current={pathname === "/" ? "page" : undefined}
+                    className={`flex h-8 w-8 items-center justify-center transition-colors duration-300 hover:bg-white hover:text-black ${
+                      pathname === "/" ? "bg-white text-black" : ""
+                    }`}
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="square"
+                      aria-hidden="true"
+                    >
+                      <path d="M3 10.5 12 3l9 7.5" />
+                      <path d="M5 9v12h14V9" />
+                      <path d="M10 21v-6h4v6" />
+                    </svg>
+                  </Link>
+                </li>
 
-            <li>
-              <button
-                type="button"
-                onClick={() => setOpen(true)}
-                aria-expanded={open}
-                aria-controls="site-menu"
-                aria-label="Open menu"
-                className="flex h-8 w-8 cursor-pointer items-center justify-center transition-colors duration-300 hover:bg-white hover:text-black"
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="square"
-                  aria-hidden="true"
-                >
-                  <line x1="3" y1="6" x2="21" y2="6" />
-                  <line x1="3" y1="12" x2="21" y2="12" />
-                  <line x1="3" y1="18" x2="21" y2="18" />
-                </svg>
-              </button>
-            </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => setOpen(true)}
+                    aria-expanded={open}
+                    aria-controls="site-menu"
+                    aria-label="Open menu"
+                    className="flex h-8 w-8 cursor-pointer items-center justify-center transition-colors duration-300 hover:bg-white hover:text-black"
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="square"
+                      aria-hidden="true"
+                    >
+                      <line x1="3" y1="6" x2="21" y2="6" />
+                      <line x1="3" y1="12" x2="21" y2="12" />
+                      <line x1="3" y1="18" x2="21" y2="18" />
+                    </svg>
+                  </button>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </motion.div>
 
+      {/* Navbar links stay above the menu (z-130). The header is
+          click-through except for the links and leaves room at the right
+          for the menu's close button; the cursor stays above all (z-140). */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -167,7 +179,7 @@ const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={reduceMotion ? undefined : { opacity: 0 }}
             transition={{ duration: 0.35, ease: EASE }}
-            className="fixed inset-0 z-[60] overflow-y-auto bg-[#0a0a0a] text-white"
+            className="fixed inset-0 z-[110] overflow-y-auto bg-[#0a0a0a] text-white"
           >
             <div className="mx-auto flex min-h-full w-full max-w-[1680px] flex-col px-4 pt-4 pb-6 sm:px-10 sm:pt-5 sm:pb-8">
               <div className="flex items-center justify-between gap-4">

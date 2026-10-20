@@ -105,7 +105,73 @@ const SchemaArt = () => (
   </svg>
 );
 
-export type ProjectArt = "road" | "wireframe" | "schema";
+const NewsArt = () => (
+  <svg viewBox="0 0 120 100" className="h-full w-full" aria-hidden="true">
+    <rect width="120" height="100" fill="#ffffff" />
+    <rect x="10" y="9" width="100" height="82" fill="#ffffff" stroke="#27272a" strokeWidth="1.2" />
+    <text
+      x="60"
+      y="22"
+      textAnchor="middle"
+      fontFamily="monospace"
+      fontSize="6"
+      fontWeight="700"
+      letterSpacing="0.2"
+      fill="#0a0a0a"
+    >
+      BANGLA NEWS 7
+    </text>
+    <line x1="15" y1="27" x2="105" y2="27" stroke="#27272a" strokeWidth="1" />
+    <rect x="15" y="32" width="48" height="23" fill="#e4e4e7" stroke="#a1a1aa" />
+    <g fill="#d4d4d8">
+      <rect x="68" y="32" width="37" height="4" />
+      <rect x="68" y="39" width="30" height="2.5" fill="#e4e4e7" />
+      <rect x="68" y="44" width="34" height="2.5" fill="#e4e4e7" />
+      <rect x="68" y="49" width="24" height="2.5" fill="#e4e4e7" />
+    </g>
+    <g fill="#a1a1aa">
+      <rect x="15" y="61" width="26" height="3" />
+      <rect x="15" y="68" width="26" height="2" fill="#e4e4e7" />
+      <rect x="15" y="73" width="22" height="2" fill="#e4e4e7" />
+      <rect x="47" y="61" width="26" height="3" />
+      <rect x="47" y="68" width="26" height="2" fill="#e4e4e7" />
+      <rect x="47" y="73" width="20" height="2" fill="#e4e4e7" />
+      <rect x="79" y="61" width="26" height="3" />
+      <rect x="79" y="68" width="26" height="2" fill="#e4e4e7" />
+      <rect x="79" y="73" width="18" height="2" fill="#e4e4e7" />
+    </g>
+    <line x1="15" y1="81" x2="105" y2="81" stroke="#d4d4d8" />
+    <rect x="15" y="84" width="90" height="2" fill="#e4e4e7" />
+  </svg>
+);
+
+const FitnessArt = () => (
+  <svg viewBox="0 0 120 100" className="h-full w-full" aria-hidden="true">
+    <rect width="120" height="100" fill="#ffffff" />
+    <rect x="22" y="12" width="76" height="76" fill="#ffffff" stroke="#27272a" strokeWidth="1.2" />
+    <rect x="44" y="8" width="32" height="9" fill="#ffffff" stroke="#27272a" strokeWidth="1.2" />
+    <g fill="#0a0a0a">
+      <rect x="40" y="27" width="40" height="5" />
+      <rect x="34" y="22" width="6" height="15" />
+      <rect x="80" y="22" width="6" height="15" />
+      <rect x="27" y="25" width="5" height="9" />
+      <rect x="88" y="25" width="5" height="9" />
+    </g>
+    <g fill="none" stroke="#a1a1aa">
+      <rect x="32" y="47" width="7" height="7" />
+      <rect x="32" y="60" width="7" height="7" />
+      <rect x="32" y="73" width="7" height="7" />
+    </g>
+    <path d="M34 50.5 L35.5 52 L38 49.5" fill="none" stroke="#27272a" strokeWidth="1" />
+    <g fill="#d4d4d8">
+      <rect x="45" y="49" width="42" height="3" />
+      <rect x="45" y="62" width="34" height="3" fill="#e4e4e7" />
+      <rect x="45" y="75" width="38" height="3" fill="#e4e4e7" />
+    </g>
+  </svg>
+);
+
+export type ProjectArt = "road" | "wireframe" | "schema" | "news" | "fitness";
 
 export type Project = {
   index: string;
@@ -114,13 +180,41 @@ export type Project = {
   stats: string[];
   meta?: string;
   art: ProjectArt;
+  live?: string;
+  repo?: string;
 };
 
 const artByKey: Record<ProjectArt, ReactNode> = {
   road: <NightRoadArt />,
   wireframe: <WireframeArt />,
   schema: <SchemaArt />,
+  news: <NewsArt />,
+  fitness: <FitnessArt />,
 };
+
+const GitHubIcon = () => (
+  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
+    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.41.35.78 1.04.78 2.1v3.11c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z" />
+  </svg>
+);
+
+const LiveIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    className="h-4 w-4"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="square"
+    aria-hidden="true"
+  >
+    <path d="M7 17 17 7" />
+    <path d="M8 7h9v9" />
+  </svg>
+);
+
+const actionClass =
+  "flex h-8 w-8 items-center justify-center border border-black bg-white text-black transition-[background-color,color,transform] duration-300 hover:bg-black hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black motion-safe:hover:-translate-y-0.5";
 
 /* --------------------------------- card ---------------------------------- */
 
@@ -165,10 +259,45 @@ const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
           </div>
         </div>
 
-        {project.meta && (
-          <p className="mt-6 border-t-2 border-black pt-3 font-mono text-[9px] uppercase leading-relaxed text-secondary sm:text-[10px]">
-            {project.meta}
-          </p>
+        {(project.meta || project.live || project.repo) && (
+          <div className="mt-6 flex items-start justify-between gap-4 border-t-2 border-black pt-3">
+            {project.meta ? (
+              <p className="min-w-0 font-mono text-[9px] uppercase leading-relaxed text-secondary sm:text-[10px]">
+                {project.meta}
+              </p>
+            ) : (
+              <span />
+            )}
+
+            {(project.live || project.repo) && (
+              <div className="flex shrink-0 items-center gap-2">
+                {project.repo && (
+                  <a
+                    href={project.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${project.title} on GitHub`}
+                    title="View source on GitHub"
+                    className={actionClass}
+                  >
+                    <GitHubIcon />
+                  </a>
+                )}
+                {project.live && (
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${project.title} live site`}
+                    title="Open live site"
+                    className={actionClass}
+                  >
+                    <LiveIcon />
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
         )}
       </div>
     </motion.article>

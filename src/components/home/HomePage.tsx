@@ -76,7 +76,7 @@ const HomePage = () => {
           ))}
         </motion.aside>
 
-        <div className="flex flex-1 flex-col px-5 pb-8 pt-20 sm:px-8 sm:pt-24 lg:px-10 lg:pb-8 lg:pt-24 xl:px-14">
+        <div className="flex flex-1 flex-col px-5 pb-8 pt-[4.5rem] sm:px-8 sm:pt-24 lg:px-10 lg:pb-8 lg:pt-24 xl:px-14">
           {/* Section index + meta */}
           <div className="flex items-start justify-between gap-6">
             <motion.div variants={rise} className="flex items-end gap-2.5">
@@ -99,7 +99,7 @@ const HomePage = () => {
           </div>
 
           {/* Hero: copy + portrait */}
-          <div className="mt-7 grid flex-1 items-center gap-9 lg:mt-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.85fr)] lg:gap-12">
+          <div className="mt-5 grid flex-1 items-center gap-9 sm:mt-7 lg:mt-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.85fr)] lg:gap-12">
             <motion.div variants={rise} className="flex flex-col">
               <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.26em] text-secondary">
                 <ScrambleText text="[System.init] // Fullstack architect" />

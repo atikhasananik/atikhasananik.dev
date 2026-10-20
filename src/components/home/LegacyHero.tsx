@@ -1,9 +1,9 @@
 "use client";
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import Image from "next/image";
+import Link from "next/link";
 import heroImg from "../../assets/image/hero-img.webp";
-import heroOverlaySvg from "../../assets/image/heroImgSvg.svg";
+import BlendWords from "./BlendWords";
 import PixelImage from "./PixelImage";
 import ScrambleText from "./ScrambleText";
 
@@ -111,69 +111,85 @@ const LegacyHero = () => {
             transition={{ duration: 1.2, ease: EASE, delay: 0.2 }}
             className="mt-8 flex w-full justify-center lg:absolute lg:bottom-0 lg:mt-0"
           >
-            <div className="group relative flex w-full max-w-full justify-center lg:inline-flex lg:w-auto">
+            <div className="relative flex w-full max-w-full justify-center lg:inline-flex lg:w-auto">
               <PixelImage
                 src={heroImg.src}
                 alt="Portrait of Atik Hasan Anik"
                 className="theme-media-filter h-auto w-full lg:h-[95vh] lg:w-auto"
               />
-              <Image
-                src={heroOverlaySvg}
-                alt=""
-                width={600}
-                height={600}
-                unoptimized
-                loading="lazy"
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-              />
             </div>
           </motion.div>
 
-          {/* Name / tagline / intro: blends over the photo on desktop only */}
-          <motion.div
-            variants={rise}
-            className="text-blend-invert relative mx-5 mt-8 lg:absolute lg:bottom-0 lg:mx-15 lg:mt-0 lg:max-w-[40%]"
-          >
-            <div className="font-bold">
-              <h1 className="text-4xl font-black shadow sm:text-5xl md:text-6xl lg:text-[clamp(2rem,6.7vh,4.5rem)]">
-                <span className="text-2xl font-dancing sm:text-3xl lg:text-[clamp(1.5rem,4.4vh,3rem)]">
-                  Yeah It&apos;s me!
+          {/* Name / tagline / intro: each word inverts against its backdrop */}
+          <div className="relative mx-5 mt-8 lg:absolute lg:bottom-0 lg:mx-15 lg:mt-0 lg:max-w-[40%] [@media(max-height:880px)]:pb-4">
+            <p className="text-2xl font-dancing sm:text-3xl lg:text-[clamp(1.5rem,4.4vh,3rem)]">
+              <BlendWords text="Yeah It's me!" />
+            </p>
+
+            <div>
+              <div className="font-bold">
+                <h1 className="text-4xl font-black sm:text-5xl md:text-6xl lg:text-[clamp(2rem,4.2vw,4.5rem)]">
+                  <BlendWords text="ATIK HASAN ANIK" scramble />
+                </h1>
+                <h2 className="mt-2 text-2xl sm:text-3xl lg:text-[clamp(1.25rem,3.4vh,2.25rem)]">
+                  <BlendWords text="Turning Ideas Into Powerful Digital Experiences" />
+                </h2>
+              </div>
+              <div className="mt-5 text-base font-semibold sm:text-lg lg:mt-[clamp(1.5rem,4vh,2.5rem)] lg:text-[clamp(0.95rem,1.9vh,1.25rem)]">
+                <p>
+                  <BlendWords text="I create engaging, user-friendly websites and applications that help businesses stand out in the digital landscape." />
+                </p>
+              </div>
+            </div>
+
+            {/* CTAs: left, directly under the intro copy */}
+            <motion.div
+              initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.9,
+                ease: EASE,
+                delay: reduceMotion ? 0 : 0.75,
+              }}
+              className="mt-4 flex flex-wrap items-center gap-3"
+            >
+              <Link
+                href="/projects"
+                className="group inline-flex items-center gap-3 border-2 border-black bg-black px-4 py-3 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-300 hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+              >
+                Latest project
+                <span
+                  aria-hidden="true"
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                >
+                  →
                 </span>
-                <br />
-                <ScrambleText text="ATIK HASAN ANIK" />
-              </h1>
-              <h2 className="mt-2 text-2xl text-shadow-lg sm:text-3xl lg:text-[clamp(1.25rem,3.4vh,2.25rem)]">
-                Turning Ideas Into Powerful Digital Experiences
-              </h2>
-            </div>
-            <div className="mt-6 text-base font-semibold sm:text-lg lg:mt-[clamp(1.5rem,4vh,2.5rem)] lg:text-[clamp(0.95rem,1.9vh,1.25rem)]">
-              <p className="shadow">
-                I create engaging, user-friendly websites and applications that
-                help businesses stand out in the digital landscape.
-              </p>
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center border-2 border-black bg-white px-4 py-3 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-black transition-colors duration-300 hover:bg-black hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+              >
+                Contact
+              </Link>
+            </motion.div>
 
-              <p className="mt-8 text-6xl font-bold sm:text-7xl lg:mt-[clamp(1.5rem,5.5vh,3.75rem)] lg:text-[clamp(3.5rem,9vh,6rem)]">
-                100
-              </p>
-            </div>
-          </motion.div>
+            <p className="mt-8 text-6xl font-bold sm:text-7xl lg:mt-[clamp(1rem,3.5vh,2.75rem)] lg:text-[clamp(3.5rem,9vh,6rem)] [@media(max-height:880px)]:hidden">
+              <BlendWords text="100" />
+            </p>
+          </div>
 
           {/* Live readouts */}
-          <motion.div
-            variants={rise}
-            className="text-blend-invert mx-5 mt-10 space-y-2 text-2xl font-black uppercase sm:text-3xl lg:absolute lg:top-100 lg:right-10 lg:mx-0 lg:mt-0"
-          >
+          <div className="mx-5 mt-10 space-y-2 text-2xl font-black uppercase sm:text-3xl lg:absolute lg:top-100 lg:right-10 lg:mx-0 lg:mt-0">
             <h3>
-              <ScrambleText text="85% COMMITS //" />
+              <BlendWords text="85% COMMITS //" scramble />
             </h3>
             <h3>
-              <ScrambleText text="10 LIVE PROJECTS //" />
+              <BlendWords text="10 LIVE PROJECTS //" scramble />
             </h3>
             <h3>
-              <ScrambleText text="5+ SATISFIED CLIENTS //" />
+              <BlendWords text="5+ SATISFIED CLIENTS //" scramble />
             </h3>
-          </motion.div>
+          </div>
 
           {/* Menu */}
           <motion.button

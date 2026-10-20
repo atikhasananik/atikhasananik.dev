@@ -1,26 +1,253 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-dancing: var(--font-dancing-script), cursive;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  /* Core Backgrounds */
+  --bg-primary: #ffffff; /* Main content canvas */
+  --bg-secondary: #f4f4f5; /* Subtle panel backgrounds */
+  --bg-dark: #0a0a0a; /* Dark section backgrounds / High contrast cards */
+  --bg-panel: #121212; /* Dark mode container panels */
+
+  /* Borders & Gridlines */
+  --border-light: #e4e4e7; /* Subtle grid borders */
+  --border-medium: #a1a1aa; /* Defined card outlines */
+  --border-dark: #27272a; /* Dark panel borders */
+  --border-heavy: #000000; /* Structural brutalist dividers */
+
+  /* Typography Colors */
+  --text-primary: #0a0a0a; /* High legibility dark text */
+  --text-secondary: #52525b; /* Metadata & secondary logs */
+  --text-muted: #71717a; /* Technical brackets & system tags */
+  --text-inverse: #ffffff; /* Text on dark backgrounds */
+
+  /* Interactive States */
+  --hover-overlay: rgba(0, 0, 0, 0.05);
+  --active-border: #000000;
+}
+
+/* ==========================================
+   1. BACKGROUND CLASSES
+   ========================================== */
+.bg-primary {
+  background-color: var(--bg-primary);
+}
+
+.bg-secondary {
+  background-color: var(--bg-secondary);
+}
+
+.bg-dark {
+  background-color: var(--bg-dark);
+}
+
+.bg-panel {
+  background-color: var(--bg-panel);
+}
+
+/* ==========================================
+   2. BORDER CLASSES
+   ========================================== */
+.border-light {
+  border: 1px solid var(--border-light);
+}
+
+.border-medium {
+  border: 1px solid var(--border-medium);
+}
+
+.border-dark {
+  border: 1px solid var(--border-dark);
+}
+
+.border-heavy {
+  border: 2px solid var(--border-heavy);
+}
+
+/* ==========================================
+   3. TYPOGRAPHY / TEXT CLASSES
+   ========================================== */
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-inverse {
+  color: var(--text-inverse);
+}
+
+/* ==========================================
+   4. INTERACTIVE & HOVER STATES
+   ========================================== */
+.hover-overlay:hover {
+  background-color: var(--hover-overlay);
+}
+
+.border-active {
+  border-color: var(--active-border);
+}
+
+/* ==========================================
+   5. MEDIA FILTERS
+   ========================================== */
+.theme-media-filter {
+  filter: grayscale(100%) contrast(110%) brightness(95%);
+  transition: filter 0.6s ease;
+}
+
+.theme-media-filter:hover {
+  filter: grayscale(0%) contrast(100%) brightness(100%);
+}
+
+/* ==========================================
+   6. WORD-BY-WORD COLORING + MINIMAL BORDER
+   Words keep their own color and hairline tag
+   border instead of the whole sentence changing
+   when the background shifts under the text.
+   ========================================== */
+.text-words span {
+  display: inline-block; /* lets each word carry its own box */
+  border: 1px solid var(--border-medium); /* minimal hairline */
+  padding: 0.05em 0.3em;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.text-word-inverse {
+  color: var(--text-inverse); /* white — words over dark/grayscale media */
+}
+
+.text-word-dark {
+  color: var(--text-primary); /* near-black — words over the white canvas */
+}
+
+/* Automatic inversion over media: text renders white over dark image
+   areas and dark over the white canvas, per word/per pixel. */
+.text-blend-invert {
+  mix-blend-mode: difference;
+  color: var(--text-inverse);
+}
+
+/* Below lg the copy flows under the photo instead of overlapping it,
+   so disable the blend and keep the text solid. */
+@media (max-width: 1023px) {
+  .text-blend-invert {
+    mix-blend-mode: normal;
+    color: var(--text-primary);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ==========================================
+   7. CUSTOM CURSOR
+   Native cursor is hidden only once the
+   cursor mounts (JS adds .cursor-none), so
+   it still works without JS or on touch.
+   ========================================== */
+.cursor-none,
+.cursor-none * {
+  cursor: none !important;
 }
+
+/* Touch / coarse-pointer devices keep the native cursor and never
+   render the custom one. */
+@media (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
+}
+
+/* ==========================================
+   8. ANT COMPANION
+   The ant is drawn in a fixed 72x48 viewBox;
+   these keyframes drive its tripod gait and
+   twitching antennae. Speed tiers are set by
+   the `.ant--stand | .ant--walk | .ant--sprint`
+   classes driven by the React state machine.
+   ========================================== */
+@keyframes ant-step {
+  0%,
+  100% {
+    transform: rotate(-14deg);
+  }
+  50% {
+    transform: rotate(14deg);
+  }
+}
+
+@keyframes ant-step-alt {
+  0%,
+  100% {
+    transform: rotate(14deg);
+  }
+  50% {
+    transform: rotate(-14deg);
+  }
+}
+
+@keyframes ant-antenna {
+  0%,
+  100% {
+    transform: rotate(-9deg);
+  }
+  50% {
+    transform: rotate(9deg);
+  }
+}
+
+.ant-leg,
+.ant-antenna {
+  transform-box: view-box; /* transform-origin in viewBox units */
+}
+
+.ant-leg {
+  animation: ant-step 0.42s ease-in-out infinite;
+}
+
+.ant-leg--alt {
+  animation-name: ant-step-alt;
+}
+
+.ant-antenna {
+  animation: ant-antenna 0.7s ease-in-out infinite;
+}
+
+.ant--stand .ant-leg {
+  animation: none;
+}
+
+.ant--walk .ant-leg {
+  animation-duration: 0.4s;
+}
+
+.ant--sprint .ant-leg {
+  animation-duration: 0.15s;
+}
+
+.ant--stand .ant-antenna {
+  animation-duration: 1.5s;
+}
+
+.ant--sprint .ant-antenna {
+  animation-duration: 0.38s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ant-leg,
+  .ant-antenna {
+    animation: none;
+  }
+}
+
+

@@ -58,7 +58,7 @@ const LegacyHero = () => {
       {/* Section index */}
       <motion.div
         variants={rise}
-        className="flex items-end gap-3 px-5 pt-24 lg:absolute lg:top-10 lg:left-10 lg:p-0"
+        className="flex items-end gap-3 px-5 pt-24 lg:absolute lg:top-[4.5rem] lg:left-10 lg:p-0"
       >
         <span className="text-6xl text-primary font-bold sm:text-7xl lg:text-9xl">01</span>
         <span className="text-5xl text-primary font-bold sm:text-6xl lg:text-8xl">/</span>

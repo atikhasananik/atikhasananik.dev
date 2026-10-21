@@ -28,9 +28,14 @@ const Navbar = () => {
   const reduceMotion = useReducedMotion();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [navHidden, setNavHidden] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const lastScrollY = useRef(0);
 
-  const close = () => setOpen(false);
+  const close = () => {
+    setOpen(false);
+    setNavHidden(false);
+  };
 
   // The XL collage hero has its own menu trigger; let it open this menu.
   useEffect(() => {
@@ -42,13 +47,50 @@ const Navbar = () => {
     };
   }, []);
 
+  // Hide the bar on downward scroll, reveal it on upward scroll.
+  useEffect(() => {
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+      const current = window.scrollY;
+      const previous = lastScrollY.current;
+
+      if (current <= 16) {
+        setNavHidden(false);
+      } else if (current > previous + 8 && current > 64) {
+        setNavHidden(true);
+      } else if (current < previous - 8) {
+        setNavHidden(false);
+      }
+
+      lastScrollY.current = current;
+    };
+
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(update);
+    };
+
+    lastScrollY.current = window.scrollY;
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
   useEffect(() => {
     if (!open) return;
 
     closeRef.current?.focus();
 
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        setNavHidden(false);
+      }
     };
 
     const previousOverflow = document.body.style.overflow;
@@ -70,20 +112,26 @@ const Navbar = () => {
     },
   };
 
+  const linkTone = open ? "text-white" : "text-black";
+  const linkMuted = open
+    ? "text-white/55 hover:text-white"
+    : "text-black/55 hover:text-black";
+  const linkUnderline = open ? "after:bg-white" : "after:bg-black";
+
   return (
     <>
       <motion.div
         initial={{ opacity: 0, y: reduceMotion ? 0 : -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: EASE }}
-        className="pointer-events-none fixed top-0 left-0 right-0 z-[130] mix-blend-difference"
+        animate={{ opacity: 1, y: navHidden ? "-100%" : 0 }}
+        transition={{ duration: reduceMotion ? 0 : 0.35, ease: EASE }}
+        className={`pointer-events-none fixed top-0 left-0 right-0 z-[130] ${
+          open ? "bg-transparent" : "bg-primary"
+        }`}
       >
-        <div
-          className={`mx-auto flex max-w-[1680px] items-center justify-end px-4 py-4 sm:px-10 sm:py-5 ${
-            open ? "sm:pr-[88px]" : ""
-          }`}
-        >
-          <ul className="pointer-events-auto flex items-center gap-4 text-sm font-semibold text-white md:gap-8 md:text-base">
+        <div className="mx-auto flex max-w-[1680px] items-center justify-end px-4 py-2.5 sm:px-10 sm:py-3">
+          <ul
+            className={`pointer-events-auto items-center gap-4 text-sm font-semibold md:gap-8 md:text-base ${open ? "hidden" : "flex"} ${linkTone}`}
+          >
             {links.map((link) => {
               const active = pathname === link.href;
 
@@ -93,10 +141,10 @@ const Navbar = () => {
                     href={link.href}
                     onClick={close}
                     aria-current={active ? "page" : undefined}
-                    className={`relative block py-1 transition-colors duration-300 after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:bg-white after:transition-[width] after:duration-300 ${
+                    className={`relative block py-1 transition-colors duration-300 after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:transition-[width] after:duration-300 ${linkUnderline} ${
                       active
-                        ? "text-white after:w-full"
-                        : "text-white/55 after:w-0 hover:text-white hover:after:w-full"
+                        ? `${linkTone} after:w-full`
+                        : `${linkMuted} after:w-0 hover:after:w-full`
                     }`}
                   >
                     {link.label}
@@ -112,8 +160,8 @@ const Navbar = () => {
                     href="/"
                     aria-label="Home"
                     aria-current={pathname === "/" ? "page" : undefined}
-                    className={`flex h-8 w-8 items-center justify-center transition-colors duration-300 hover:bg-white hover:text-black ${
-                      pathname === "/" ? "bg-white text-black" : ""
+                    className={`flex h-8 w-8 items-center justify-center transition-colors duration-300 hover:bg-black hover:text-white ${
+                      pathname === "/" ? "bg-black text-white" : "text-black"
                     }`}
                   >
                     <svg
@@ -133,14 +181,14 @@ const Navbar = () => {
                   </Link>
                 </li>
 
-                <li>
+                <li className="sm:hidden">
                   <button
                     type="button"
                     onClick={() => setOpen(true)}
                     aria-expanded={open}
                     aria-controls="site-menu"
                     aria-label="Open menu"
-                    className="flex h-8 w-8 cursor-pointer items-center justify-center transition-colors duration-300 hover:bg-white hover:text-black"
+                    className="flex h-8 w-8 cursor-pointer items-center justify-center text-black transition-colors duration-300 hover:bg-black hover:text-white"
                   >
                     <svg
                       width="24"

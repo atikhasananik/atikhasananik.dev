@@ -46,7 +46,7 @@ const Footer = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.9, ease: EASE }}
-          className="group flex flex-col gap-8 border-b border-white/15 py-12 sm:py-16 lg:flex-row lg:items-end lg:justify-between"
+          className="flex flex-col gap-8 border-b border-white/15 py-12 sm:py-16 lg:flex-row lg:items-end lg:justify-between"
         >
           <div>
             <p className="flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.26em] text-white/45">
@@ -58,7 +58,7 @@ const Footer = () => {
             </h2>
           </div>
 
-          <span className="flex items-center gap-4">
+          <span className="group flex items-center gap-4">
             <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/60 transition-colors duration-300 group-hover:text-white">
               Start a conversation
             </span>
@@ -178,7 +178,7 @@ const Footer = () => {
         <div className="flex flex-col gap-2 border-t border-white/15 py-5 font-mono text-[9px] uppercase tracking-[0.18em] text-white/35 sm:flex-row sm:items-center sm:justify-between">
           <span>© {year} Atik Hasan Anik</span>
           <span>All rights reserved</span>
-          <span>Built with Next.js {"//"} Tailwind</span>
+          <span>Designed {"//"} developed by Atik Hasan Anik</span>
         </div>
       </div>
     </footer>

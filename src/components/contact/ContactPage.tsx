@@ -74,19 +74,10 @@ const ContactPage = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const data = new FormData(form);
-    const name = String(data.get("name") ?? "");
-    const email = String(data.get("email") ?? "");
-    const message = String(data.get("message") ?? "");
 
-    const subject = encodeURIComponent(`Project enquiry — ${name}`);
-    const body = encodeURIComponent(`${message}\n\n— ${name}\n${email}`);
-
-    form.reset();
+    event.currentTarget.reset();
     toastSequence.current += 1;
     setToast({ id: toastSequence.current });
-    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -254,7 +245,7 @@ const ContactPage = () => {
 
               <button
                 type="submit"
-                className="group flex items-center justify-between border-2 border-black bg-white px-4 py-3.5 text-left transition-[transform,box-shadow,background-color,color] duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:bg-black hover:text-white hover:shadow-[8px_8px_0_0_#0a0a0a] active:translate-x-0 active:translate-y-0 active:shadow-none"
+                className="group flex items-center justify-between border-2 border-black bg-black px-4 py-3.5 text-left text-white transition-[transform,box-shadow,background-color,color] duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:bg-white hover:text-black hover:shadow-[8px_8px_0_0_#0a0a0a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:translate-x-0 active:translate-y-0 active:shadow-none"
               >
                 <span className="font-mono text-[11px] font-bold uppercase tracking-[0.22em]">
                   Transmit message
@@ -265,7 +256,7 @@ const ContactPage = () => {
               </button>
 
               <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted">
-                Opens your mail client {"//"} No data stored
+                No data stored
               </p>
             </form>
           </motion.div>

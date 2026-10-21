@@ -57,8 +57,7 @@ const ContactToast = ({ open, toastKey, onClose }: ContactToastProps) => {
                     Message ready
                   </p>
                   <p className="mt-1.5 font-mono text-[10px] uppercase leading-relaxed tracking-[0.08em] text-white/65">
-                    Your mail client should open with the message. I&apos;ll reply
-                    within 24 hours.
+                    Thanks for reaching out. I&apos;ll reply within 24 hours.
                   </p>
                 </div>
               </div>

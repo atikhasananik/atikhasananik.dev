@@ -18,18 +18,16 @@ const Cursor = () => {
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
 
-  // Dot tracks the pointer tightly, ring trails behind with a soft spring.
-  const dotX = useSpring(x, { stiffness: 900, damping: 45, mass: 0.3 });
-  const dotY = useSpring(y, { stiffness: 900, damping: 45, mass: 0.3 });
+  // The dot follows the pointer directly; the ring keeps a short, fast trail.
   const ringX = useSpring(x, {
-    stiffness: reduceMotion ? 900 : 260,
-    damping: reduceMotion ? 45 : 28,
-    mass: 0.6,
+    stiffness: reduceMotion ? 900 : 520,
+    damping: reduceMotion ? 45 : 34,
+    mass: reduceMotion ? 0.2 : 0.3,
   });
   const ringY = useSpring(y, {
-    stiffness: reduceMotion ? 900 : 260,
-    damping: reduceMotion ? 45 : 28,
-    mass: 0.6,
+    stiffness: reduceMotion ? 900 : 520,
+    damping: reduceMotion ? 45 : 34,
+    mass: reduceMotion ? 0.2 : 0.3,
   });
 
   useEffect(() => {
@@ -68,12 +66,12 @@ const Cursor = () => {
       <motion.div
         aria-hidden="true"
         className="custom-cursor pointer-events-none fixed top-0 left-0 z-[140] -mt-[3px] -ml-[3px] h-1.5 w-1.5 rounded-full bg-white mix-blend-difference"
-        style={{ x: dotX, y: dotY }}
+        style={{ x, y }}
         animate={{
           opacity: visible ? 1 : 0,
           scale: hovering ? 0 : 1,
         }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
+        transition={{ duration: 0.15, ease: "easeOut" }}
       />
 
       {/* Trailing ring that grows over interactive elements */}
@@ -86,7 +84,7 @@ const Cursor = () => {
           scale: hovering ? 1.75 : 1,
           borderWidth: hovering ? 1.5 : 1,
         }}
-        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
       />
     </>
   );

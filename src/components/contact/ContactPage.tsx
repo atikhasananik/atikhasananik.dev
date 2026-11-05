@@ -7,9 +7,12 @@ import ContactToast from "./ContactToast";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const EMAIL = "itsatikhasananik@gmail.com";
+const RESUME =
+  "https://drive.google.com/file/d/1nIysxW12Lzow-lxKUtbZuykJgxPKzYhX/view?usp=sharing";
 
 const channels = [
   { label: "Email", value: EMAIL, href: `mailto:${EMAIL}`, external: false },
+  { label: "RRESUME", value: "/resume", href: RESUME, external: true },
   {
     label: "GitHub",
     value: "/atikhasananik",
@@ -123,8 +126,8 @@ const ContactPage = () => {
             </h2>
 
             <p className="mt-6 max-w-md font-mono text-[11px] uppercase leading-relaxed tracking-wide text-secondary sm:text-xs">
-              Freelance projects, product work or long-term collaboration. Send a
-              brief and you&apos;ll get a reply within 24 hours.
+              Freelance projects, product work or long-term collaboration. Send
+              a brief and you&apos;ll get a reply within 24 hours.
             </p>
 
             {/* Channels */}

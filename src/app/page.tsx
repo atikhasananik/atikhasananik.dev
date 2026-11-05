@@ -6,7 +6,6 @@ import TechnologyPage from '@/components/technology/TechnologyPage';
 import { pageMetadata } from '@/lib/seo';
 import { SITE_DESCRIPTION, SITE_TITLE } from '@/lib/site';
 import type { Metadata } from 'next';
-import React from 'react';
 
 export const metadata: Metadata = {
   ...pageMetadata('Full-Stack Web Developer', SITE_DESCRIPTION, '/'),

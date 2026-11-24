@@ -32,11 +32,13 @@ The home page renders sections 01–05 in sequence; each section is also availab
 
 | Project | What it is | Stack | Links |
 |---------|------------|-------|-------|
+| **FixMate** | Role-based repair service marketplace with customer, technician, and admin dashboards plus Stripe checkout | Next.js 16, React 19, Tailwind 4, Express 5, MongoDB, BetterAuth, Stripe | [Live](https://fixmate-sand.vercel.app/) · [Source](https://github.com/atikhasananik/fixMate) |
+| **StudioSpace** | Creative studio discovery and booking platform with host dashboards | Next.js 16, React 19, Tailwind 4, Express 5, MongoDB, BetterAuth | [Live](https://studiospace-ebon.vercel.app/) · [Source](https://github.com/atikhasananik/studiospace) |
 | **Bazardor** | Price tracking and market comparison platform with authentication | Next.js 16, React 19, Tailwind 4, MongoDB | [Live](https://a07-bazardor.vercel.app/) · [Source](https://github.com/atikhasananik/a07-bazardor) |
 | **Bangla News 7** | Bengali-first live news feed powered by News API v2 | Next.js 16, React 19, Tailwind 4 | [Live](https://banglanews7.vercel.app/) · [Source](https://github.com/atikhasananik/banglanews7) |
 | **FitLog** | Workout planner with an exercise library and saved plans | Next.js 16, React 19, Tailwind 4 | [Live](https://a06-fitlog.vercel.app/) · [Source](https://github.com/atikhasananik/a06-fitlog) |
 
-Project data lives in `src/components/projects/ProjectPage.tsx`; each card renders its `live` and `repo` links when present.
+Project data lives in `src/components/projects/projects.ts`. The home page renders the first three cards (`<ProjectPage limit={3} />`); `/projects` renders the full list. Each card renders its `live` and `repo` links when present.
 
 ## Tech Stack
 

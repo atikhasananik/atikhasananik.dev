@@ -16,7 +16,7 @@ const page = () => {
   return (
     <div className='bg-primary'>
       <HomePage></HomePage>
-      <ProjectPage></ProjectPage>
+      <ProjectPage limit={3}></ProjectPage>
       <EducationPage></EducationPage>
       <TechnologyPage></TechnologyPage>
       <ContactPage></ContactPage>

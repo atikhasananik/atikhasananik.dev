@@ -1,0 +1,62 @@
+import type { Project } from "./ProjectCard";
+
+export const projects: Project[] = [
+  {
+    index: "01",
+    title: "FIXMATE",
+    version: "REPAIR",
+    stats: [
+      "ROLE-BASED DASHBOARDS //",
+      "STRIPE CHECKOUT //",
+      "EXPRESS + MONGO //",
+    ],
+    meta: "[PROJECT.V1].REPAIR // ARCH: APP ROUTER. API: EXPRESS 5. AUTH: BETTER AUTH. PAY: STRIPE. Stack: Next.js 16. React 19. Tailwind 4. MongoDB.",
+    art: "repair",
+    live: "https://fixmate-sand.vercel.app/",
+    repo: "https://github.com/atikhasananik/fixMate",
+  },
+  {
+    index: "02",
+    title: "STUDIOSPACE",
+    version: "BOOK",
+    stats: [
+      "STUDIO BOOKING //",
+      "HOST DASHBOARD //",
+      "BETTER AUTH + MONGO //",
+    ],
+    meta: "[PROJECT.V2].STUDIO // ARCH: APP ROUTER. AUTH: BETTER AUTH. API: EXPRESS 5. Stack: Next.js 16. React 19. Tailwind 4. MongoDB.",
+    art: "studio",
+    live: "https://studiospace-ebon.vercel.app/",
+    repo: "https://github.com/atikhasananik/studiospace",
+  },
+  {
+    index: "03",
+    title: "BANGLA NEWS 7",
+    version: "FEED",
+    stats: ["LIVE NEWS FEED //", "NEWS API V2 //", "BENGALI-FIRST //"],
+    meta: "[PROJECT.V3].NEWS // ARCH: APP ROUTER. FEED: NEWS API V2. Stack: Next.js 16. React 19. Tailwind 4.",
+    art: "news",
+    live: "https://banglanews7.vercel.app/",
+    repo: "https://github.com/atikhasananik/banglanews7",
+  },
+  {
+    index: "04",
+    title: "FITLOG",
+    version: "PLAN",
+    stats: ["EXERCISE LIBRARY //", "5 WORKOUT LIMIT //", "SAVED PLANS //"],
+    meta: "[PROJECT.V4].PLAN // ARCH: APP ROUTER. DATA: WORKOUT API. Stack: Next.js 16. React 19. Tailwind 4.",
+    art: "fitness",
+    live: "https://a06-fitlog.vercel.app/",
+    repo: "https://github.com/atikhasananik/a06-fitlog",
+  },
+  {
+    index: "05",
+    title: "BAZARDOR",
+    version: "MARKET",
+    stats: ["PRICE TRACKING //", "MARKET COMPARE //", "MONGO + AUTH //"],
+    meta: "[PROJECT.V5].MARKET // ARCH: APP ROUTER. DB: MONGODB. Stack: Next.js 16. React 19. Tailwind 4.",
+    art: "wireframe",
+    live: "https://a07-bazardor.vercel.app/",
+    repo: "https://github.com/atikhasananik/a07-bazardor",
+  },
+];

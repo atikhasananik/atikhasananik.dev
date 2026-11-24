@@ -3,7 +3,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata(
   "Projects",
-  "Selected full-stack projects by Atik Hasan Anik: BazarDor price tracking, Bangla News 7 Bengali-first live news, and FitLog workout planning.",
+  "Selected full-stack projects by Atik Hasan Anik: FixMate repair marketplace, StudioSpace creative studio booking, Bangla News 7 Bengali-first live news, FitLog workout planning, and BazarDor price tracking.",
   "/projects",
 );
 

@@ -1,42 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import ProjectCard, { type Project } from "./ProjectCard";
+import ProjectCard from "./ProjectCard";
+import { projects } from "./projects";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-
-const projects: Project[] = [
-  {
-    index: "01",
-    title: "BAZARDOR",
-    version: "MARKET",
-    stats: ["PRICE TRACKING //", "MARKET COMPARE //", "MONGO + AUTH //"],
-    meta: "[PROJECT.V1].MARKET // ARCH: APP ROUTER. DB: MONGODB. Stack: Next.js 16. React 19. Tailwind 4.",
-    art: "wireframe",
-    live: "https://a07-bazardor.vercel.app/",
-    repo: "https://github.com/atikhasananik/a07-bazardor",
-  },
-  {
-    index: "02",
-    title: "BANGLA NEWS 7",
-    version: "FEED",
-    stats: ["LIVE NEWS FEED //", "NEWS API V2 //", "BENGALI-FIRST //"],
-    meta: "[PROJECT.V2].NEWS // ARCH: APP ROUTER. FEED: NEWS API V2. Stack: Next.js 16. React 19. Tailwind 4.",
-    art: "news",
-    live: "https://banglanews7.vercel.app/",
-    repo: "https://github.com/atikhasananik/banglanews7",
-  },
-  {
-    index: "03",
-    title: "FITLOG",
-    version: "PLAN",
-    stats: ["EXERCISE LIBRARY //", "5 WORKOUT LIMIT //", "SAVED PLANS //"],
-    meta: "[PROJECT.V3].PLAN // ARCH: APP ROUTER. DATA: WORKOUT API. Stack: Next.js 16. React 19. Tailwind 4.",
-    art: "fitness",
-    live: "https://a06-fitlog.vercel.app/",
-    repo: "https://github.com/atikhasananik/a06-fitlog",
-  },
-];
 
 /* --------------------------------- stats --------------------------------- */
 
@@ -48,8 +17,14 @@ const railStats = [
 
 /* ---------------------------------- page --------------------------------- */
 
-const ProjectPage = () => {
+type ProjectPageProps = {
+  limit?: number;
+};
+
+const ProjectPage = ({ limit }: ProjectPageProps) => {
   const reduceMotion = useReducedMotion();
+  const visibleProjects = limit ? projects.slice(0, limit) : projects;
+  const isPreview = limit !== undefined;
 
   return (
     <div className="min-h-screen mt-16 bg-primary text-primary sm:mt-20">
@@ -85,10 +60,33 @@ const ProjectPage = () => {
 
         <section className="relative mt-5 flex-1 sm:mt-6 lg:mx-15 lg:mt-8">
           <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-2">
-            {projects.map((project, index) => (
+            {visibleProjects.map((project, index) => (
               <ProjectCard key={project.index} project={project} index={index} />
             ))}
           </div>
+
+          {isPreview && (
+            <motion.div
+              initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
+              className="relative z-10 mt-6 flex justify-end sm:mt-8"
+            >
+              <Link
+                href="/projects"
+                className="group inline-flex h-10 items-center gap-3 border-heavy bg-primary px-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] transition-colors duration-300 hover:bg-black hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:text-[11px]"
+              >
+                View all projects
+                <span
+                  aria-hidden="true"
+                  className="transition-transform duration-300 motion-safe:group-hover:translate-x-1"
+                >
+                  →
+                </span>
+              </Link>
+            </motion.div>
+          )}
 
           <motion.span
             aria-hidden="true"

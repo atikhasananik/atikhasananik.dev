@@ -171,7 +171,68 @@ const FitnessArt = () => (
   </svg>
 );
 
-export type ProjectArt = "road" | "wireframe" | "schema" | "news" | "fitness";
+const RepairArt = () => (
+  <svg viewBox="0 0 120 100" className="h-full w-full" aria-hidden="true">
+    <rect width="120" height="100" fill="#ffffff" />
+    <path
+      d="M44 33v-8a4 4 0 0 1 4-4h24a4 4 0 0 1 4 4v8"
+      fill="none"
+      stroke="#27272a"
+      strokeWidth="1.4"
+    />
+    <rect x="12" y="33" width="96" height="55" fill="#ffffff" stroke="#27272a" strokeWidth="1.4" />
+    <line x1="12" y1="47" x2="108" y2="47" stroke="#a1a1aa" />
+    <rect x="50" y="44" width="20" height="6" fill="#0a0a0a" />
+    <g transform="translate(60 70)">
+      <g fill="#a1a1aa">
+        <rect x="-2.5" y="-18" width="5" height="7" />
+        <rect x="-2.5" y="-18" width="5" height="7" transform="rotate(45)" />
+        <rect x="-2.5" y="-18" width="5" height="7" transform="rotate(90)" />
+        <rect x="-2.5" y="-18" width="5" height="7" transform="rotate(135)" />
+        <rect x="-2.5" y="-18" width="5" height="7" transform="rotate(180)" />
+        <rect x="-2.5" y="-18" width="5" height="7" transform="rotate(225)" />
+        <rect x="-2.5" y="-18" width="5" height="7" transform="rotate(270)" />
+        <rect x="-2.5" y="-18" width="5" height="7" transform="rotate(315)" />
+      </g>
+      <circle r="12" fill="#ffffff" stroke="#0a0a0a" strokeWidth="2.4" />
+      <circle r="4.5" fill="#ffffff" stroke="#0a0a0a" strokeWidth="2" />
+    </g>
+  </svg>
+);
+
+const StudioArt = () => (
+  <svg viewBox="0 0 120 100" className="h-full w-full" aria-hidden="true">
+    <rect width="120" height="100" fill="#ffffff" />
+    <g stroke="#a1a1aa" strokeWidth="1">
+      <line x1="14" y1="44" x2="14" y2="86" />
+      <line x1="106" y1="44" x2="106" y2="86" />
+    </g>
+    <g fill="#ffffff" stroke="#27272a" strokeWidth="1.2">
+      <rect x="6" y="30" width="16" height="13" />
+      <rect x="98" y="30" width="16" height="13" />
+    </g>
+    <rect x="40" y="18" width="24" height="6" fill="#ffffff" stroke="#27272a" strokeWidth="1.2" />
+    <rect x="32" y="24" width="44" height="26" fill="#ffffff" stroke="#27272a" strokeWidth="1.2" />
+    <rect x="76" y="31" width="10" height="9" fill="#0a0a0a" />
+    <circle cx="50" cy="37" r="8" fill="#ffffff" stroke="#27272a" strokeWidth="1.2" />
+    <circle cx="50" cy="37" r="3.5" fill="#0a0a0a" />
+    <g stroke="#27272a" strokeWidth="1.2" fill="none">
+      <line x1="54" y1="50" x2="40" y2="84" />
+      <line x1="54" y1="50" x2="68" y2="84" />
+      <line x1="54" y1="50" x2="54" y2="86" />
+    </g>
+    <line x1="10" y1="86" x2="110" y2="86" stroke="#e4e4e7" />
+  </svg>
+);
+
+export type ProjectArt =
+  | "road"
+  | "wireframe"
+  | "schema"
+  | "news"
+  | "fitness"
+  | "repair"
+  | "studio";
 
 export type Project = {
   index: string;
@@ -190,6 +251,8 @@ const artByKey: Record<ProjectArt, ReactNode> = {
   schema: <SchemaArt />,
   news: <NewsArt />,
   fitness: <FitnessArt />,
+  repair: <RepairArt />,
+  studio: <StudioArt />,
 };
 
 const GitHubIcon = () => (
